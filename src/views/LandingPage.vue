@@ -80,7 +80,7 @@ export default {
 
 			<div :class="$style.hint">
 				<Icon name="help" size="14" />Juster is built on
-				<span>{{token.name}}</span> blockchain and uses
+				<span>{{ token.name }}</span> blockchain and uses
 				<span>RedStone</span> oracle price feed
 			</div>
 		</div>
