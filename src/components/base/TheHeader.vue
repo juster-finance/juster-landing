@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from "vue"
+import { reactive, ref } from "vue"
 import Button from "@/components/ui/Button.vue"
 import {links as linksConfig} from "@/config" 
 
@@ -15,12 +15,59 @@ const links = reactive([
 		icon: "compass",
 	}
 ])
+
+const showMobileMenu = ref(false)
+
+
 </script>
 
 <template>
 	<header :class="[$style.wrapper]">
+
+		<!-- Mobile menu -->
+		<transition name="fade">
+			<div v-if="showMobileMenu" @click="showMobileMenu = false" :class="$style.mobile_menu">
+				<Flex direction="column" gap="16">
+					<Flex direction="column" gap="16">
+						<div :class="$style.mobile_menu__title">Resources</div>
+
+						<div :class="$style.mobile_menu__links">
+							<a :href="linksConfig.docs" :class="$style.mobile_menu__link">
+								<div :class="$style.left">
+									<Icon name="compass_1" size="14" />
+									<span>Documentation</span>
+								</div>
+
+								<div :class="$style.mobile_menu__description">Everything you need is here</div>
+							</a>
+							<a :href="linksConfig.roadmap" :class="$style.mobile_menu__link">
+								<div :class="$style.left">
+									<Icon name="map" size="14" />
+									<span>Roadmap</span>
+								</div>
+
+								<div :class="$style.mobile_menu__description">Explore the product path</div>
+							</a>
+							<a :href="linksConfig.github" target="_blank" :class="$style.mobile_menu__link">
+								<div :class="$style.left">
+									<Icon name="github" size="14" />
+									<span>Source Code</span>
+								</div>
+
+								<div :class="$style.mobile_menu__description">Explore our code & contribute</div>
+							</a>
+						</div>
+					</Flex>
+				</Flex>
+			</div>
+		</transition>
+
 		<div :class="$style.base">
 			<div :class="$style.left">
+				<div @click="showMobileMenu = !showMobileMenu" :class="$style.mobile_menu_icon">
+					<Icon :name="showMobileMenu ? 'close' : 'menu'" size="16" />
+				</div>
+
 				<a href="/" :class="$style.logo" tabindex="-1">
 					<Icon name="logo_symbol" size="28" />
 				</a>
